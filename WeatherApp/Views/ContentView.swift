@@ -9,8 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject var locationManager: LocationManager = LocationManager()
-    var weatherManager = WeatherManager()
-    @State var weather: ResponseBody?
+	var weatherManager = WeatherManager(apiService: WeatherService())
+    @State var weather: WeatherResponse?
     
     var body: some View {
         VStack {
@@ -23,7 +23,7 @@ struct ContentView: View {
                         .task {
                             do {
                                 weather = try await weatherManager.getCurrentWeather(
-                                    latitude: location.latitude,
+									location.latitude,
                                     longitude: location.longitude
                                 )
                             }
@@ -44,9 +44,10 @@ struct ContentView: View {
                 }
             }
         }
-        .edgesIgnoringSafeArea(.all)
+        .edgesIgnoringSafeArea(.bottom)
         .background(Color(hue: 0.636, saturation: 0.78, brightness: 0.773))
-        .preferredColorScheme(.light)
+		.foregroundStyle(Color.white)
+        .preferredColorScheme(.dark)
     }
 }
 

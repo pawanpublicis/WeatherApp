@@ -28,7 +28,7 @@ struct WelcomeView: View {
             }
             .cornerRadius(30)
             .symbolVariant(.fill)
-            .foregroundColor(.white)
+			.foregroundStyle(Color.white)
         }
     }
 }

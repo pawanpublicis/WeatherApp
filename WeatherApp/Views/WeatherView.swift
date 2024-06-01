@@ -8,20 +8,43 @@
 import SwiftUI
 
 struct WeatherView: View {
-    var weather: ResponseBody
+    var weather: WeatherResponse
+	@State private var showingSheet = false
     
     var body: some View {
         ZStack(alignment: .leading) {
             VStack {
-                VStack(alignment: .leading, spacing: 5) {
-                    Text(weather.name)
-                        .bold()
-                        .font(.title)
-                    
-                    Text("Today, \(Date().formatted(.dateTime.month().day().hour().minute()))")
-                        .fontWeight(.light)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
+				HStack {
+					VStack(alignment: .leading, spacing: 5) {
+						Text(weather.name)
+							.bold()
+							.font(.title)
+						
+						Text("Today, \(Date().formatted(.dateTime.month().day().hour().minute()))")
+							.fontWeight(.light)
+					}
+					.frame(maxWidth: .infinity, alignment: .leading)
+					
+					Spacer()
+					
+					Button {
+						showingSheet.toggle()
+					} label: {
+						Image(systemName: "magnifyingglass")
+							.font(.system(size: 24))
+							.fontWeight(.light)
+					}
+					.sheet(isPresented: $showingSheet) {
+						CitySearchView(
+							citySearchClosure: {
+								cityName in
+								//	weather.getWeather(by: cityName)
+								debugPrint(cityName)
+							},
+							isPresented: $showingSheet
+						)
+					}
+				}
                 
                 Spacer()
                 
@@ -60,6 +83,7 @@ struct WeatherView: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }
             .padding()
+			.foregroundStyle(Color.white)
             .frame(maxWidth: .infinity, alignment: .leading)
             
             VStack {
@@ -89,9 +113,8 @@ struct WeatherView: View {
                 .cornerRadius(20, corners: [.topLeft, .topRight])
             }
         }
-        .edgesIgnoringSafeArea(.all)
-        .background(Color(hue: 0.656, saturation: 0.787, brightness: 0.354))
-        .preferredColorScheme(.dark)
+		.background(Color(hue: 0.636, saturation: 0.78, brightness: 0.773))
+        .preferredColorScheme(.light)
     }
 }
 
