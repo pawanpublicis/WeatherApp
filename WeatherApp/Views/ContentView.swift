@@ -6,49 +6,42 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct ContentView: View {
-    @StateObject var locationManager: LocationManager = LocationManager()
-	var weatherManager = WeatherManager(apiService: WeatherService())
-    @State var weather: WeatherResponse?
-    
-    var body: some View {
-        VStack {
-            if let location = locationManager.location {
-                if let weather = weather {
-                    WeatherView(weather: weather)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                } else {
-                    LoadingView()
-                        .task {
-                            do {
-                                weather = try await weatherManager.getCurrentWeather(
-									location.latitude,
-                                    longitude: location.longitude
-                                )
-                            }
-                            catch {
-                                debugPrint("Error getting weather: \(error)")
-                            }
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                }
-            } else {
-                if locationManager.isLoading {
-                    LoadingView()
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                } else {
-                    WelcomeView()
-                        .environmentObject(locationManager)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                }
-            }
-        }
-        .edgesIgnoringSafeArea(.bottom)
-        .background(Color(hue: 0.636, saturation: 0.78, brightness: 0.773))
+	@StateObject var locationManager: LocationManager = LocationManager()
+	@StateObject var weatherManager: WeatherManager = WeatherManager(apiService: WeatherService())
+	
+	var body: some View {
+		VStack {
+			if let location = locationManager.location {
+				WeatherView(
+					weatherManager: weatherManager,
+					coordinates: location
+				)
+				.frame(maxWidth: .infinity, maxHeight: .infinity)
+			} else {
+				if locationManager.isLoading {
+					LoadingView()
+						.frame(maxWidth: .infinity, maxHeight: .infinity)
+				} else if locationManager.isAuthorized {
+					LoadingView()
+						.onAppear {
+							locationManager.requestLocation()
+						}
+						.frame(maxWidth: .infinity, maxHeight: .infinity)
+				} else {
+					WelcomeView()
+						.environmentObject(locationManager)
+						.frame(maxWidth: .infinity, maxHeight: .infinity)
+				}
+			}
+		}
+		.edgesIgnoringSafeArea(.bottom)
+		.background(Color(hue: 0.636, saturation: 0.78, brightness: 0.773))
 		.foregroundStyle(Color.white)
-        .preferredColorScheme(.dark)
-    }
+		.preferredColorScheme(.dark)
+	}
 }
 
 #Preview {

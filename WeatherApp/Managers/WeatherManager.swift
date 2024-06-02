@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 /// WeatherManager is responsible for managing weather-related operations, such as fetching current weather data.
-class WeatherManager {
+class WeatherManager: ObservableObject {
 	/// The service responsible for making API requests.
 	private let apiService: APIService
 	

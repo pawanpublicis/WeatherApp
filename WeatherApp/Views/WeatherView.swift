@@ -6,17 +6,23 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct WeatherView: View {
-    var weather: WeatherResponse
+	//
+	@ObservedObject var weatherManager: WeatherManager
+	var coordinates: CLLocationCoordinate2D
+	//
+	@State private var weather: WeatherResponse?
 	@State private var showingSheet = false
+	@State private var isLoading: Bool = true
     
     var body: some View {
         ZStack(alignment: .leading) {
             VStack {
 				HStack {
 					VStack(alignment: .leading, spacing: 5) {
-						Text(weather.name)
+						Text(weather?.name ?? "Loading...")
 							.bold()
 							.font(.title)
 						
@@ -38,8 +44,7 @@ struct WeatherView: View {
 						CitySearchView(
 							citySearchClosure: {
 								cityName in
-								//	weather.getWeather(by: cityName)
-								debugPrint(cityName)
+								fetchWeather(for: cityName)
 							},
 							isPresented: $showingSheet
 						)
@@ -51,16 +56,18 @@ struct WeatherView: View {
                 VStack {
                     HStack {
                         VStack(spacing: 20) {
-                            Image(systemName: "cloud")
-                                .font(.system(size: 40))
+							if let weatherConditionId = weather?.weather.first?.id {
+								Text(getWeatherIcon(condition: Int(weatherConditionId)))
+									.font(.system(size: 40))
+							}
                             
-                            Text("\(weather.weather[0].main)")
+                            Text("\(weather?.weather[0].main ?? "...")")
                         }
                         .frame(width: 150, alignment: .leading)
                         
                         Spacer()
                         
-                        Text(weather.main.feelsLike.roundDouble() + "°")
+                        Text(weather?.main.feelsLike.roundDouble() ?? "0.0" + "°")
                             .font(.system(size: 100))
                             .fontWeight(.semibold)
                             .padding()
@@ -88,23 +95,39 @@ struct WeatherView: View {
             
             VStack {
                 Spacer()
-                VStack(alignment: .leading, spacing: 20) {
-                    Text("Weather now")
-                        .bold()
-                        .padding(.bottom)
-                    
-                    HStack {
-                        WeatherRow(logo: "thermometer", name: "Min temp", value: (weather.main.tempMin.roundDouble() + ("°")))
-                        Spacer()
-                        WeatherRow(logo: "thermometer", name: "Max temp", value: (weather.main.tempMax.roundDouble() + "°"))
-                    }
-                    
-                    HStack {
-                        WeatherRow(logo: "wind", name: "Wind speed", value: (weather.wind.speed.roundDouble() + " m/s"))
-                        Spacer()
-                        WeatherRow(logo: "humidity", name: "Humidity", value: "\(weather.main.humidity.roundDouble())%")
-                    }
-                }
+				VStack(alignment: .leading, spacing: 20) {
+					Text("Weather now")
+						.bold()
+						.padding(.bottom)
+					
+					HStack {
+						WeatherRow(
+							logo: "thermometer",
+							name: "Min temp",
+							value: weather?.main.tempMin.roundDouble() ?? "0.0" + "°"
+						)
+						Spacer()
+						WeatherRow(
+							logo: "thermometer",
+							name: "Max temp",
+							value: weather?.main.tempMax.roundDouble() ?? "0.0" + "°"
+						)
+					}
+					
+					HStack {
+						WeatherRow(
+							logo: "wind",
+							name: "Wind speed",
+							value: weather?.wind.speed.roundDouble() ?? "0.0" + " m/s"
+						)
+						Spacer()
+						WeatherRow(
+							logo: "humidity",
+							name: "Humidity",
+							value: "\(weather?.main.humidity.roundDouble() ?? "0.0")%"
+						)
+					}
+				}
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding()
                 .padding(.bottom, 20)
@@ -115,9 +138,35 @@ struct WeatherView: View {
         }
 		.background(Color(hue: 0.636, saturation: 0.78, brightness: 0.773))
         .preferredColorScheme(.light)
+		.onAppear {
+			fetchWeather()
+		}
+		.onChange(of: coordinates) { _ in
+			fetchWeather()
+		}
     }
+	
+	private func fetchWeather(for city: String? = nil) {
+		isLoading = true
+		Task {
+			do {
+				if let city = city {
+					weather = try await weatherManager.getCityWeather(city)
+				} else {
+					weather = try await weatherManager.getCurrentWeather(
+						coordinates.latitude,
+						longitude: coordinates.longitude
+					)
+				}
+			} catch {
+				debugPrint("Error getting weather: \(error)")
+			}
+			isLoading = false
+		}
+	}
 }
 
 #Preview {
-    WeatherView(weather: previewWeather)
+	WeatherView(weatherManager: WeatherManager(apiService: WeatherService()),
+				coordinates: CLLocationCoordinate2DMake(26.846694, 80.946166))
 }
