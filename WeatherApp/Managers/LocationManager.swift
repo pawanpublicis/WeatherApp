@@ -10,7 +10,8 @@ import CoreLocation
 
 /// LocationManager class to handle location updates and authorization status.
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-	let manager: CLLocationManager = CLLocationManager()
+	//
+	var manager: CLLocationManager
 	
 	/// Published property to store the current location coordinates.
 	@Published var location: CLLocationCoordinate2D?
@@ -22,9 +23,10 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
 	@Published var isAuthorized: Bool = false
 	
 	/// Initializes the LocationManager and checks authorization status.
-	override init() {
+	init(manager: CLLocationManager = CLLocationManager()) {
+		self.manager = manager
 		super.init()
-		manager.delegate = self
+		self.manager.delegate = self
 		checkAuthorizationStatus()
 	}
 	

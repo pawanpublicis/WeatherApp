@@ -49,6 +49,7 @@ struct WeatherView: View {
 							isPresented: $showingSheet
 						)
 					}
+					.accessibilityIdentifier("SearchButton")
 				}
                 
                 Spacer()

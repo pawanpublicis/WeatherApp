@@ -25,6 +25,7 @@ struct CitySearchView: View {
 					TextField("Enter city name", text: $cityName)
 						.textFieldStyle(.plain)
 						.foregroundStyle(Color.black)
+						.accessibilityIdentifier("Search")
 				}
 				.frame(height: 50)
 				.background(Color.white)

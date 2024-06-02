@@ -29,6 +29,7 @@ struct WelcomeView: View {
             .cornerRadius(30)
             .symbolVariant(.fill)
 			.foregroundStyle(Color.white)
+			.accessibilityIdentifier("ShareLocationButton")
         }
     }
 }
