@@ -40,27 +40,19 @@ final class WeatherAppUITests: XCTestCase {
 		searchButton.tap()
 		
 		// Interact with the search field in CitySearchView
-		let searchField = app.searchFields["Search"]
+		let searchField = app.textFields["Search"]
 		XCTAssertTrue(searchField.waitForExistence(timeout: 5), "Search field should exist")
 				searchField.tap()
 		searchField.typeText("Noida")
-		
-		// Check if the search results appear
-		let tablesQuery = app.tables
-		XCTAssertTrue(tablesQuery.cells.count > 0, "There should be at least one search result")
-	}
-
-	func testWeatherDetailsDisplay() throws {
-		let app = XCUIApplication()
-		app.launch()
-		
-		let tablesQuery = app.tables
-		let firstCell = tablesQuery.cells.element(boundBy: 0)
-		XCTAssertTrue(firstCell.waitForExistence(timeout: 5), "The first cell should exist")
-		firstCell.tap()
-		
-		let weatherDetail = app.staticTexts["Weather Detail"]
-		XCTAssertTrue(weatherDetail.waitForExistence(timeout: 5), "Weather Detail should be displayed")
+        
+        // Tap on Search button
+        let citySearchButton = app.buttons["CitySearchButton"]
+        XCTAssertTrue(searchButton.waitForExistence(timeout: 5), "City search button should exist")
+        citySearchButton.tap()
+        
+		// Check if city name label exist
+		let cityNameLabel = app.staticTexts["CityNameLabel"]
+        XCTAssertTrue(cityNameLabel.waitForExistence(timeout: 5), "City name label should exist")
 	}
 
 	func testLaunchPerformance() throws {

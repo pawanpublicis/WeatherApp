@@ -25,6 +25,7 @@ struct WeatherView: View {
 						Text(weather?.name ?? "Loading...")
 							.bold()
 							.font(.title)
+                            .accessibilityIdentifier("CityNameLabel")
 						
 						Text("Today, \(Date().formatted(.dateTime.month().day().hour().minute()))")
 							.fontWeight(.light)

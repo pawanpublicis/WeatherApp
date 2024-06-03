@@ -47,6 +47,7 @@ struct CitySearchView: View {
 				.tint(.black)
 				.clipShape(.capsule)
 				.padding(.vertical, 20)
+                .accessibilityIdentifier("CitySearchButton")
 				
 				Spacer()
 			}
