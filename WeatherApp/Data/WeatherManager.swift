@@ -6,10 +6,11 @@
 //
 
 import Foundation
-import CoreLocation
+import Combine
 
 /// WeatherManager is responsible for managing weather-related operations, such as fetching current weather data.
-class WeatherManager: ObservableObject {
+class WeatherManager: ObservableObject, WeatherServiceProtocol {
+
 	/// The service responsible for making API requests.
 	private let apiService: APIService
 	
@@ -27,11 +28,11 @@ class WeatherManager: ObservableObject {
 	///   - longitude: The longitude of the location.
 	/// - Returns: The current weather data.
 	/// - Throws: An error of type `APIError` if the request or decoding fails.
-	func getCurrentWeather(
-		_ latitude: CLLocationDegrees,
-		longitude: CLLocationDegrees
-	) async throws -> WeatherResponse {
-		let endpoint = WeatherAPI.Endpoint.weather(latitude: latitude, longitude: longitude)
+	func fetchWeather(for location: Location) async throws -> WeatherResponse {
+		let endpoint = WeatherAPI.Endpoint.weather(
+			latitude: location.latitude,
+			longitude: location.longitude
+		)
 		return try await apiService.request(endpoint, responseType: WeatherResponse.self)
 	}
 	
@@ -40,8 +41,8 @@ class WeatherManager: ObservableObject {
 	/// - Parameter name: The name of the city.
 	/// - Returns: The current weather data for the city.
 	/// - Throws: An error of type `APIError` if the request or decoding fails.
-	func getCityWeather(_ name: String) async throws -> WeatherResponse {
-		let endPoint = WeatherAPI.Endpoint.cityWeather(cityName: name)
+	func fetchWeather(for city: String) async throws -> WeatherResponse {
+		let endPoint = WeatherAPI.Endpoint.cityWeather(cityName: city)
 		return try await apiService.request(endPoint, responseType: WeatherResponse.self)
 	}
 }

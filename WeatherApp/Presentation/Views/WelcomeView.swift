@@ -9,7 +9,8 @@ import SwiftUI
 import CoreLocationUI
 
 struct WelcomeView: View {
-    @EnvironmentObject var locationManager: LocationManager
+	//
+	@ObservedObject var weatherViewModel: WeatherViewModel
     
     var body: some View {
         VStack {
@@ -24,7 +25,7 @@ struct WelcomeView: View {
             .padding()
             
             LocationButton(.shareCurrentLocation) {
-                locationManager.requestLocation()
+				weatherViewModel.requestLocation()
             }
             .cornerRadius(30)
             .symbolVariant(.fill)
@@ -35,5 +36,12 @@ struct WelcomeView: View {
 }
 
 #Preview {
-    WelcomeView()
+	WelcomeView(
+		weatherViewModel:WeatherViewModel(
+			weatherService: WeatherManager(
+				apiService: WeatherService()
+			),
+			locationService: LocationManager()
+		)
+	)
 }

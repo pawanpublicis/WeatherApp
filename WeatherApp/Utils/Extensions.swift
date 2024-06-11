@@ -13,6 +13,12 @@ extension Double {
     func roundDouble() -> String {
         return String(format: "%.0f", self)
     }
+	func degree() -> String {
+		return roundDouble() + "°"
+	}
+	func ms() -> String {
+		return roundDouble() + " m/s"
+	}
 }
 
 

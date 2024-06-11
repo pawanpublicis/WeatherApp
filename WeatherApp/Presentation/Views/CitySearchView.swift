@@ -22,10 +22,18 @@ struct CitySearchView: View {
 				HStack {
 					Text("")
 						.padding(.horizontal, 8)
-					TextField("Enter city name", text: $cityName)
-						.textFieldStyle(.plain)
-						.foregroundStyle(Color.black)
-						.accessibilityIdentifier("Search")
+					TextField(
+						"",
+						text: $cityName,
+						prompt: Text(
+							"Enter city name"
+						).foregroundColor(
+							.gray
+						)
+					)
+					.textFieldStyle(.plain)
+					.foregroundStyle(Color.black)
+					.accessibilityIdentifier("Search")
 				}
 				.frame(height: 50)
 				.background(Color.white)
