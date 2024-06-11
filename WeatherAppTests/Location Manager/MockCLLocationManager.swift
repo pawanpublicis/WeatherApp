@@ -7,35 +7,48 @@
 
 import Foundation
 import CoreLocation
+import Combine
 
-class MockCLLocationManager: CLLocationManager {
-	var mockAuthorizationStatus: CLAuthorizationStatus = .notDetermined
+@testable import WeatherApp
+
+class MockLocationManager: NSObject, LocationServiceProtocol {
 	var mockLocation: CLLocation?
-	weak var mockDelegate: CLLocationManagerDelegate?
+	var mockDelegate: CLLocationManagerDelegate?
 
-	override var authorizationStatus: CLAuthorizationStatus {
-		return mockAuthorizationStatus
-	}
+	var isLocationAuthorized: Bool = false
 
-	override var delegate: CLLocationManagerDelegate? {
-		get {
-			return mockDelegate
-		}
-		set {
-			mockDelegate = newValue
-		}
-	}
-	
-	override func requestWhenInUseAuthorization() {
-		mockAuthorizationStatus = .authorizedWhenInUse
-		delegate?.locationManagerDidChangeAuthorization?(self)
-	}
-
-	override func requestLocation() {
+	func requestLocation() {
 		if let location = mockLocation {
-			delegate?.locationManager?(self, didUpdateLocations: [location])
+			mockDelegate?.locationManager?(CLLocationManager(), didUpdateLocations: [location])
 		} else {
-			delegate?.locationManager?(self, didFailWithError: NSError(domain: "LocationError", code: 1, userInfo: nil))
+			mockDelegate?.locationManager?(CLLocationManager(), didFailWithError: NSError(
+				domain: "LocationError",
+				code: 1,
+				userInfo: nil
+			))
+		}
+	}
+
+	func fetchCurrentLocation() async throws -> Location {
+		guard isLocationAuthorized else {
+			throw LocationError.authorizationDenied
+		}
+
+		if let location = mockLocation {
+			return Location(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+		} else {
+			throw LocationError.locationFailure(NSError(
+				domain: "LocationError",
+				code: 1,
+				userInfo: nil
+			))
+		}
+	}
+
+	func authorizationStatusFuture() -> Future<Bool, Never> {
+		return Future { promise in
+			promise(.success(self.isLocationAuthorized))
 		}
 	}
 }
+

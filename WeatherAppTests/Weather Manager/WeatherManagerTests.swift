@@ -55,7 +55,8 @@ class WeatherManagerTests: XCTestCase {
 		mockAPIService.mockWeatherResponse = expectedWeather
 		
 		// Act
-		let result = try await weatherManager.getCurrentWeather(37.7749, longitude: -122.4194)
+		let location = Location(latitude: 37.7749, longitude: -122.4194)
+		let result = try await weatherManager.fetchWeather(for: location)
 		
 		// Assert
 		XCTAssertEqual(result.coord.lat, expectedWeather.coord.lat)
@@ -73,7 +74,8 @@ class WeatherManagerTests: XCTestCase {
 		
 		// Act
 		do {
-			_ = try await weatherManager.getCurrentWeather(37.7749, longitude: -122.4194)
+			let location = Location(latitude: 37.7749, longitude: -122.4194)
+			_ = try await weatherManager.fetchWeather(for: location)
 			XCTFail("Expected error to be thrown")
 		} catch {
 			// Assert
@@ -111,7 +113,7 @@ class WeatherManagerTests: XCTestCase {
 		mockAPIService.mockWeatherResponse = expectedWeather
 		
 		// Act
-		let result = try await weatherManager.getCityWeather("Noida")
+		let result = try await weatherManager.fetchWeather(for: "Noida")
 		
 		// Assert
 		XCTAssertEqual(result.coord.lat, expectedWeather.coord.lat)
@@ -129,7 +131,7 @@ class WeatherManagerTests: XCTestCase {
 		
 		// Act
 		do {
-			_ = try await weatherManager.getCityWeather("Noida")
+			_ = try await weatherManager.fetchWeather(for: "Noida")
 			XCTFail("Expected error to be thrown")
 		} catch {
 			// Assert
