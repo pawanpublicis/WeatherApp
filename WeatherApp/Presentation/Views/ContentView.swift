@@ -9,12 +9,12 @@ import SwiftUI
 import CoreLocation
 
 struct ContentView: View {
-	@StateObject var weatherViewModel: WeatherViewModel = WeatherViewModel(
-		weatherService: WeatherManager(
-			apiService: WeatherService()
-		),
-		locationService: LocationManager()
-	)
+    //
+	@StateObject var weatherViewModel: WeatherViewModel
+    //
+    init(weatherViewModel: WeatherViewModel) {
+        _weatherViewModel = StateObject(wrappedValue: weatherViewModel)
+    }
 	
 	var body: some View {
 		VStack {
@@ -38,5 +38,11 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    let weatherViewModel: WeatherViewModel = WeatherViewModel(
+        weatherService: WeatherManager(
+            apiService: WeatherService()
+        ),
+        locationService: LocationManager()
+    )
+    return ContentView(weatherViewModel: weatherViewModel)
 }

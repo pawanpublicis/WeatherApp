@@ -17,6 +17,9 @@ final class WeatherAppUITests: XCTestCase {
 	}
 
 	func testSearchCity() throws {
+        //
+        XCUIDevice.shared.orientation = .portrait
+        //
 		let app = XCUIApplication()
 		app.launch()
 		
@@ -25,7 +28,7 @@ final class WeatherAppUITests: XCTestCase {
 		XCTAssertTrue(shareLocationButton.waitForExistence(timeout: 5), "Share location button should exist")
 		shareLocationButton.tap()
         
-        // Tap on okay button in alert
+        // Tap on `OK` button in alert
         let locationDialogMonitor = addUIInterruptionMonitor(withDescription: "Automatically allow location permissions") { alert in
             alert.buttons["OK"].tap()
             return true
