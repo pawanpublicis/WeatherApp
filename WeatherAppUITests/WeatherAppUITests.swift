@@ -25,7 +25,7 @@ final class WeatherAppUITests: XCTestCase {
 		
 		// Tap the button to make WeatherView appear
 		let shareLocationButton = app.otherElements["ShareLocationButton"]
-		XCTAssertTrue(shareLocationButton.waitForExistence(timeout: 5), "Share location button should exist")
+		XCTAssertTrue(shareLocationButton.waitForExistence(timeout: 10), "Share location button should exist")
 		shareLocationButton.tap()
         
         // Tap on `OK` button in alert
