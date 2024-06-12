@@ -13,13 +13,13 @@ import CoreLocation
 
 class LocationManagerTests: XCTestCase {
 	var locationManager: LocationManager!
-	var mockLocationManager: MockLocationService!
+	var mockLocationManager: MockCLLocationManager!
 	var cancellables: Set<AnyCancellable>!
 
 	override func setUp() {
 		super.setUp()
-		mockLocationManager = MockLocationService()
-		locationManager = LocationManager(manager: CLLocationManager())
+		mockLocationManager = MockCLLocationManager()
+		locationManager = LocationManager(manager: mockLocationManager)
 		cancellables = []
 	}
 
@@ -33,9 +33,9 @@ class LocationManagerTests: XCTestCase {
 	func testLocationUpdateSuccess() async {
 		let expectedLocation = CLLocation(latitude: 37.7749, longitude: -122.4194)
 		mockLocationManager.mockLocation = expectedLocation
-		mockLocationManager.isLocationAuthorized = true
+		locationManager.isLocationAuthorized = true
 
-		let location = try? await mockLocationManager.fetchCurrentLocation()
+		let location = try? await locationManager.fetchCurrentLocation()
 
 		XCTAssertEqual(location?.latitude, expectedLocation.coordinate.latitude)
 		XCTAssertEqual(location?.longitude, expectedLocation.coordinate.longitude)
@@ -43,10 +43,10 @@ class LocationManagerTests: XCTestCase {
 
 	func testLocationUpdateFailure() async {
 		mockLocationManager.mockLocation = nil
-		mockLocationManager.isLocationAuthorized = true
+		locationManager.isLocationAuthorized = true
 
 		do {
-			_ = try await mockLocationManager.fetchCurrentLocation()
+			_ = try await locationManager.fetchCurrentLocation()
 			XCTFail("Expected to throw an error but did not.")
 		} catch {
 			XCTAssertTrue(error is LocationError)
@@ -56,9 +56,9 @@ class LocationManagerTests: XCTestCase {
 	func testAuthorizationStatus() {
 		let expectation = XCTestExpectation(description: "Authorization status future should complete")
 
-		mockLocationManager.isLocationAuthorized = true
+		locationManager.isLocationAuthorized = true
 
-		mockLocationManager.authorizationStatusFuture()
+		locationManager.authorizationStatusFuture()
 			.sink { isAuthorized in
 				XCTAssertTrue(isAuthorized)
 				expectation.fulfill()

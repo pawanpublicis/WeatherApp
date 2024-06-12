@@ -13,15 +13,15 @@ import Combine
 
 class MockLocationService: NSObject, LocationServiceProtocol {
 	var mockLocation: CLLocation?
-	var mockDelegate: CLLocationManagerDelegate?
+	var delegate: CLLocationManagerDelegate?
 
 	var isLocationAuthorized: Bool = false
 
 	func requestLocation() {
 		if let location = mockLocation {
-			mockDelegate?.locationManager?(CLLocationManager(), didUpdateLocations: [location])
+			delegate?.locationManager?(CLLocationManager(), didUpdateLocations: [location])
 		} else {
-			mockDelegate?.locationManager?(CLLocationManager(), didFailWithError: NSError(
+			delegate?.locationManager?(CLLocationManager(), didFailWithError: NSError(
 				domain: "LocationError",
 				code: 1,
 				userInfo: nil
