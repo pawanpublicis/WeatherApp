@@ -27,7 +27,7 @@
 		091FEA812C0DE811009B194E /* WeatherAppSnapshotsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091FEA802C0DE811009B194E /* WeatherAppSnapshotsTests.swift */; };
 		870B068D2C0C7E3800E6E6C0 /* WeatherManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870B068C2C0C7E3800E6E6C0 /* WeatherManagerTests.swift */; };
 		870B06912C0C7F0500E6E6C0 /* LocationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870B06902C0C7F0500E6E6C0 /* LocationManagerTests.swift */; };
-		870B06932C0CCA9F00E6E6C0 /* MockCLLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870B06922C0CCA9F00E6E6C0 /* MockCLLocationManager.swift */; };
+		870B06932C0CCA9F00E6E6C0 /* MockCLLocationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870B06922C0CCA9F00E6E6C0 /* MockCLLocationServices.swift */; };
 		870B06952C0CCF9A00E6E6C0 /* MockAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870B06942C0CCF9A00E6E6C0 /* MockAPIService.swift */; };
 		8712C37F2C072CF400D06B0D /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8712C37E2C072CF400D06B0D /* WeatherService.swift */; };
 		8712C3812C0732C000D06B0D /* WeatherAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8712C3802C0732C000D06B0D /* WeatherAPI.swift */; };
@@ -38,6 +38,7 @@
 		87A952532C11A8D300B0381B /* WeatherServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A952522C11A8D300B0381B /* WeatherServiceProtocol.swift */; };
 		87A952592C11A98800B0381B /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A952582C11A98800B0381B /* Weather.swift */; };
 		87A9525C2C11A9AF00B0381B /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9525B2C11A9AF00B0381B /* WeatherViewModel.swift */; };
+		87B6ABF12C1996C70085BEF0 /* MockWeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B6ABF02C1996C70085BEF0 /* MockWeatherService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,7 +81,7 @@
 		091FEA802C0DE811009B194E /* WeatherAppSnapshotsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppSnapshotsTests.swift; sourceTree = "<group>"; };
 		870B068C2C0C7E3800E6E6C0 /* WeatherManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherManagerTests.swift; sourceTree = "<group>"; };
 		870B06902C0C7F0500E6E6C0 /* LocationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerTests.swift; sourceTree = "<group>"; };
-		870B06922C0CCA9F00E6E6C0 /* MockCLLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCLLocationManager.swift; sourceTree = "<group>"; };
+		870B06922C0CCA9F00E6E6C0 /* MockCLLocationServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCLLocationServices.swift; sourceTree = "<group>"; };
 		870B06942C0CCF9A00E6E6C0 /* MockAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIService.swift; sourceTree = "<group>"; };
 		8712C37E2C072CF400D06B0D /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		8712C3802C0732C000D06B0D /* WeatherAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAPI.swift; sourceTree = "<group>"; };
@@ -91,6 +92,7 @@
 		87A952522C11A8D300B0381B /* WeatherServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherServiceProtocol.swift; sourceTree = "<group>"; };
 		87A952582C11A98800B0381B /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		87A9525B2C11A9AF00B0381B /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
+		87B6ABF02C1996C70085BEF0 /* MockWeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWeatherService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +208,7 @@
 			children = (
 				870B06942C0CCF9A00E6E6C0 /* MockAPIService.swift */,
 				870B068C2C0C7E3800E6E6C0 /* WeatherManagerTests.swift */,
+				87B6ABF02C1996C70085BEF0 /* MockWeatherService.swift */,
 			);
 			path = "Weather Manager";
 			sourceTree = "<group>";
@@ -214,7 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				870B06902C0C7F0500E6E6C0 /* LocationManagerTests.swift */,
-				870B06922C0CCA9F00E6E6C0 /* MockCLLocationManager.swift */,
+				870B06922C0CCA9F00E6E6C0 /* MockCLLocationServices.swift */,
 			);
 			path = "Location Manager";
 			sourceTree = "<group>";
@@ -468,9 +471,10 @@
 				091FEA812C0DE811009B194E /* WeatherAppSnapshotsTests.swift in Sources */,
 				870B06912C0C7F0500E6E6C0 /* LocationManagerTests.swift in Sources */,
 				870B06952C0CCF9A00E6E6C0 /* MockAPIService.swift in Sources */,
+				87B6ABF12C1996C70085BEF0 /* MockWeatherService.swift in Sources */,
 				870B068D2C0C7E3800E6E6C0 /* WeatherManagerTests.swift in Sources */,
 				09107C212C00C67F000BE40B /* WeatherAppTests.swift in Sources */,
-				870B06932C0CCA9F00E6E6C0 /* MockCLLocationManager.swift in Sources */,
+				870B06932C0CCA9F00E6E6C0 /* MockCLLocationServices.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

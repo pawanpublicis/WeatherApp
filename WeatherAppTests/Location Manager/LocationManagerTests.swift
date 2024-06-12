@@ -13,12 +13,12 @@ import CoreLocation
 
 class LocationManagerTests: XCTestCase {
 	var locationManager: LocationManager!
-	var mockLocationManager: MockLocationManager!
+	var mockLocationManager: MockLocationService!
 	var cancellables: Set<AnyCancellable>!
 
 	override func setUp() {
 		super.setUp()
-		mockLocationManager = MockLocationManager()
+		mockLocationManager = MockLocationService()
 		locationManager = LocationManager(manager: CLLocationManager())
 		cancellables = []
 	}

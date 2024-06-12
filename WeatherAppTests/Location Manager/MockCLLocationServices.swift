@@ -11,7 +11,7 @@ import Combine
 
 @testable import WeatherApp
 
-class MockLocationManager: NSObject, LocationServiceProtocol {
+class MockLocationService: NSObject, LocationServiceProtocol {
 	var mockLocation: CLLocation?
 	var mockDelegate: CLLocationManagerDelegate?
 

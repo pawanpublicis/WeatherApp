@@ -13,31 +13,36 @@ import XCTest
 
 class WeatherAppSnapshotsTests: XCTestCase {
     //
-    func testWelcomeView() throws {
-		let welcomeView = WelcomeView(
-			weatherViewModel:WeatherViewModel(
-			 weatherService: WeatherManager(
-				 apiService: WeatherService()
-			 ),
-			 locationService: LocationManager()
-		 )
-	 )
-        let view: UIView = UIHostingController(rootView: welcomeView).view
-        //
-        assertSnapshot(of: view, as: .image(size: view.intrinsicContentSize))
-    }
-    func testWeatherView() throws {
+	func testWelcomeView() throws {
+		let mockWeatherViewModel = WeatherViewModel(
+			weatherService: MockWeatherService(),
+			locationService: MockLocationService()
+		)
+		let welcomeView = WelcomeView(weatherViewModel: mockWeatherViewModel)
+		let view: UIView = UIHostingController(rootView: welcomeView).view
 		//
-        let weatherView = WeatherView(
-			weatherViewModel:WeatherViewModel(
-			 weatherService: WeatherManager(
-				 apiService: WeatherService()
-			 ),
-			 locationService: LocationManager()
-		 )
-	 )
-        let view: UIView = UIHostingController(rootView: weatherView).view
-        //
-        assertSnapshot(of: view, as: .image(size: view.intrinsicContentSize))
-    }
+		assertSnapshot(of: view, as: .image(size: view.intrinsicContentSize))
+	}
+	func testWeatherView() throws {
+		//
+		let mockWeatherViewModel = WeatherViewModel(
+			weatherService: MockWeatherService(),
+			locationService: MockLocationService()
+		)
+		let weatherView = WeatherView(weatherViewModel: mockWeatherViewModel)
+		let view: UIView = UIHostingController(rootView: weatherView).view
+		//
+		assertSnapshot(of: view, as: .image(size: view.intrinsicContentSize))
+	}
+	func testContentView() throws {
+		//
+		let mockWeatherViewModel = WeatherViewModel(
+			weatherService: MockWeatherService(),
+			locationService: MockLocationService()
+		)
+		let contentView = ContentView(weatherViewModel: mockWeatherViewModel)
+		let view: UIView = UIHostingController(rootView: contentView).view
+		//
+		assertSnapshot(of: view, as: .image(size: view.intrinsicContentSize))
+	}
 }
