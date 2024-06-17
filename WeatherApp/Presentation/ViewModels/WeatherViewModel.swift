@@ -8,12 +8,13 @@
 import Foundation
 import Combine
 
+/// ViewModel responsible for managing weather and location data.
 class WeatherViewModel: ObservableObject {
-	//
+	/// Services to fetch weather and location data.
 	private let weatherService: WeatherUseCaseProtocol
 	private let locationService: LocationUseCaseProtocol
 	private var cancellables = Set<AnyCancellable>()
-	
+	/// Published properties to update the UI.
 	@Published var weather: Weather?
 	@Published var isLocationAuthorized: Bool = false
 	@Published var isLoading: Bool = false

@@ -22,7 +22,7 @@ class WeatherAppSnapshotsTests: XCTestCase {
 		let welcomeView = WelcomeView(weatherViewModel: mockWeatherViewModel)
 		let view: UIView = UIHostingController(rootView: welcomeView).view
 		//
-		assertSnapshot(of: view, as: .image(size: view.intrinsicContentSize), record: true)
+		assertSnapshot(of: view, as: .image(size: view.intrinsicContentSize))
 	}
 	func testWeatherView() throws {
 		//
@@ -33,7 +33,7 @@ class WeatherAppSnapshotsTests: XCTestCase {
 		let weatherView = WeatherView(weatherViewModel: mockWeatherViewModel)
 		let view: UIView = UIHostingController(rootView: weatherView).view
 		//
-		assertSnapshot(of: view, as: .image(size: view.intrinsicContentSize), record: true)
+		assertSnapshot(of: view, as: .image(size: view.intrinsicContentSize))
 	}
 	func testContentView() throws {
 		//
@@ -44,6 +44,6 @@ class WeatherAppSnapshotsTests: XCTestCase {
 		let contentView = ContentView(weatherViewModel: mockWeatherViewModel)
 		let view: UIView = UIHostingController(rootView: contentView).view
 		//
-		assertSnapshot(of: view, as: .image(size: view.intrinsicContentSize), record: true)
+		assertSnapshot(of: view, as: .image(size: view.intrinsicContentSize))
 	}
 }
