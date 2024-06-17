@@ -9,6 +9,12 @@ import Foundation
 
 /// WeatherService is responsible for making WeatherAPI requests.
 final class WeatherService: WeatherServiceProtocol {
+	//
+	let session: URLSession
+	
+	init(session: URLSession = URLSession.shared) {
+		self.session = session
+	}
 	/// Makes an WeatherAPI request using async/await and returns the decoded response.
 	/// - Parameters:
 	///   - endpoint: The endpoint to request.
@@ -24,7 +30,7 @@ final class WeatherService: WeatherServiceProtocol {
 		request.httpMethod = endpoint.httpMethod
 		
 		do {
-			let (data, response) = try await URLSession.shared.data(for: request)
+			let (data, response) = try await session.data(for: request)
 			guard let httpResponse = response as? HTTPURLResponse, 200..<300 ~= httpResponse.statusCode else {
 				throw WeatherAPIError.invalidResponse
 			}

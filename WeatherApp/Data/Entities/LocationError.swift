@@ -23,3 +23,9 @@ enum LocationError: Error {
 		}
 	}
 }
+
+extension LocationError: Equatable {
+	static func == (lhs: LocationError, rhs: LocationError) -> Bool {
+		lhs.localizedDescription == rhs.localizedDescription
+	}
+}

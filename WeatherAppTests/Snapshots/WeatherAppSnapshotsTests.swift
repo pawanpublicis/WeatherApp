@@ -9,40 +9,41 @@ import SnapshotTesting
 import SwiftUI
 import CoreLocation
 import XCTest
+
 @testable import WeatherApp
 
 class WeatherAppSnapshotsTests: XCTestCase {
     //
 	func testWelcomeView() throws {
-		let mockWeatherViewModel = WeatherViewModel(
-			weatherService: MockWeatherService(),
-			locationService: MockLocationService()
+		let mockWeatherViewModel: WeatherViewModel = WeatherViewModel(
+			weatherService: MockWeatherUseCase(),
+			locationService: MockLocationUseCase()
 		)
 		let welcomeView = WelcomeView(weatherViewModel: mockWeatherViewModel)
 		let view: UIView = UIHostingController(rootView: welcomeView).view
 		//
-		assertSnapshot(of: view, as: .image(size: view.intrinsicContentSize))
+		assertSnapshot(of: view, as: .image(size: view.intrinsicContentSize), record: true)
 	}
 	func testWeatherView() throws {
 		//
-		let mockWeatherViewModel = WeatherViewModel(
-			weatherService: MockWeatherService(),
-			locationService: MockLocationService()
+		let mockWeatherViewModel: WeatherViewModel = WeatherViewModel(
+			weatherService: MockWeatherUseCase(),
+			locationService: MockLocationUseCase()
 		)
 		let weatherView = WeatherView(weatherViewModel: mockWeatherViewModel)
 		let view: UIView = UIHostingController(rootView: weatherView).view
 		//
-		assertSnapshot(of: view, as: .image(size: view.intrinsicContentSize))
+		assertSnapshot(of: view, as: .image(size: view.intrinsicContentSize), record: true)
 	}
 	func testContentView() throws {
 		//
-		let mockWeatherViewModel = WeatherViewModel(
-			weatherService: MockWeatherService(),
-			locationService: MockLocationService()
+		let mockWeatherViewModel: WeatherViewModel = WeatherViewModel(
+			weatherService: MockWeatherUseCase(),
+			locationService: MockLocationUseCase()
 		)
 		let contentView = ContentView(weatherViewModel: mockWeatherViewModel)
 		let view: UIView = UIHostingController(rootView: contentView).view
 		//
-		assertSnapshot(of: view, as: .image(size: view.intrinsicContentSize))
+		assertSnapshot(of: view, as: .image(size: view.intrinsicContentSize), record: true)
 	}
 }

@@ -9,6 +9,7 @@ import Foundation
 import Combine
 
 class WeatherViewModel: ObservableObject {
+	//
 	private let weatherService: WeatherUseCaseProtocol
 	private let locationService: LocationUseCaseProtocol
 	private var cancellables = Set<AnyCancellable>()

@@ -11,6 +11,7 @@ import CoreLocation
 class MockCLLocationManager: CLLocationManager {
 	var mockAuthorizationStatus: CLAuthorizationStatus = .notDetermined
 	var mockLocation: CLLocation?
+	var mockError: Error?
 
 	override var authorizationStatus: CLAuthorizationStatus {
 		return mockAuthorizationStatus
