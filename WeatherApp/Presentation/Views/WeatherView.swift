@@ -59,18 +59,18 @@ struct WeatherView: View {
 					VStack {
 						HStack {
 							VStack(spacing: 20) {
-								if let weatherConditionId = weatherViewModel.weather?.weather.first?.id {
+								if let weatherConditionId = weatherViewModel.weather?.id {
 									Text(getWeatherIcon(condition: Int(weatherConditionId)))
 										.font(.system(size: 40))
 								}
 								
-								Text("\(weatherViewModel.weather?.weather[0].main ?? "...")")
+								Text("\(weatherViewModel.weather?.condition ?? "...")")
 							}
 							.frame(width: 150, alignment: .leading)
 							
 							Spacer()
 							
-							Text(weatherViewModel.weather?.main.feelsLike.degree() ?? "0.0" + "°")
+							Text(weatherViewModel.weather?.feelsLike ?? "0.0" + "°")
 								.font(.system(size: 100))
 								.fontWeight(.semibold)
 								.padding()
@@ -107,13 +107,13 @@ struct WeatherView: View {
 							WeatherRow(
 								logo: "thermometer",
 								name: "Min temp",
-								value: weatherViewModel.weather?.main.tempMin.degree() ?? "0.0" + "°"
+								value: weatherViewModel.weather?.tempMin ?? "0.0" + "°"
 							)
 							Spacer()
 							WeatherRow(
 								logo: "thermometer",
 								name: "Max temp",
-								value: weatherViewModel.weather?.main.tempMax.degree() ?? "0.0" + "°"
+								value: weatherViewModel.weather?.tempMax ?? "0.0" + "°"
 							)
 						}
 						
@@ -121,13 +121,13 @@ struct WeatherView: View {
 							WeatherRow(
 								logo: "wind",
 								name: "Wind speed",
-								value: weatherViewModel.weather?.wind.speed.ms() ?? "0.0" + " m/s"
+								value: weatherViewModel.weather?.windSpeed ?? "0.0" + " m/s"
 							)
 							Spacer()
 							WeatherRow(
 								logo: "humidity",
 								name: "Humidity",
-								value: "\(weatherViewModel.weather?.main.humidity.roundDouble() ?? "0.0")%"
+								value: "\(weatherViewModel.weather?.humidity ?? "0.0")%"
 							)
 						}
 					}
@@ -149,12 +149,18 @@ struct WeatherView: View {
 }
 
 #Preview {
-	WeatherView(
-		weatherViewModel:WeatherViewModel(
-			weatherService: WeatherManager(
-				apiService: WeatherService()
-			),
-			locationService: LocationManager()
+	let weatherViewModel: WeatherViewModel = WeatherViewModel(
+		weatherService: WeatherUseCase(
+			repository: DefaultWeatherRepository(
+				service: WeatherService()
+			)
+		),
+		locationService: LocationUseCase(
+			repository: DefaultLocationRepository(
+				service: LocationService(),
+				isLocationAuthorized: false
+			)
 		)
 	)
+	return WeatherView(weatherViewModel: weatherViewModel)
 }

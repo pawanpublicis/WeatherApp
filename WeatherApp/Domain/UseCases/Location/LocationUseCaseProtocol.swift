@@ -1,15 +1,16 @@
 //
-//  LocationServiceProtocol.swift
+//  LocationUseCaseProtocol.swift
 //  WeatherApp
 //
-//  Created by Pawan on 11/06/24.
+//  Created by Pawan on 16/06/24.
 //
 
 import Foundation
+
 import Combine
 
 /// Protocol defining the location service's interface.
-protocol LocationServiceProtocol {
+protocol LocationUseCaseProtocol {
 	
 	/// Fetches the current location.
 	/// - Returns: The current location or an error.

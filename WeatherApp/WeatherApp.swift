@@ -12,10 +12,17 @@ struct WeatherApp: App {
     var body: some Scene {
         WindowGroup {
             let weatherViewModel: WeatherViewModel = WeatherViewModel(
-                weatherService: WeatherManager(
-                    apiService: WeatherService()
-                ),
-                locationService: LocationManager()
+				weatherService: WeatherUseCase(
+					repository: DefaultWeatherRepository(
+						service: WeatherService()
+					)
+				),
+				locationService: LocationUseCase(
+					repository: DefaultLocationRepository(
+						service: LocationService(),
+						isLocationAuthorized: false
+					)
+				)
             )
             ContentView(weatherViewModel: weatherViewModel)
         }

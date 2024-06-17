@@ -9,11 +9,11 @@ import Foundation
 import Combine
 
 class WeatherViewModel: ObservableObject {
-	private let weatherService: WeatherServiceProtocol
-	private let locationService: LocationServiceProtocol
+	private let weatherService: WeatherUseCaseProtocol
+	private let locationService: LocationUseCaseProtocol
 	private var cancellables = Set<AnyCancellable>()
 	
-	@Published var weather: WeatherResponse?
+	@Published var weather: Weather?
 	@Published var isLocationAuthorized: Bool = false
 	@Published var isLoading: Bool = false
 
@@ -21,7 +21,7 @@ class WeatherViewModel: ObservableObject {
 	/// - Parameters:
 	///   - weatherService: The weather service used to fetch weather data.
 	///   - locationService: The location service used to fetch location data.
-	init(weatherService: WeatherServiceProtocol, locationService: LocationServiceProtocol) {
+	init(weatherService: WeatherUseCaseProtocol, locationService: LocationUseCaseProtocol) {
 		self.weatherService = weatherService
 		self.locationService = locationService
 		

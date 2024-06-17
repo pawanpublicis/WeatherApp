@@ -38,11 +38,18 @@ struct ContentView: View {
 }
 
 #Preview {
-    let weatherViewModel: WeatherViewModel = WeatherViewModel(
-        weatherService: WeatherManager(
-            apiService: WeatherService()
-        ),
-        locationService: LocationManager()
-    )
+	let weatherViewModel: WeatherViewModel = WeatherViewModel(
+		weatherService: WeatherUseCase(
+			repository: DefaultWeatherRepository(
+				service: WeatherService()
+			)
+		),
+		locationService: LocationUseCase(
+			repository: DefaultLocationRepository(
+				service: LocationService(),
+				isLocationAuthorized: false
+			)
+		)
+	)
     return ContentView(weatherViewModel: weatherViewModel)
 }

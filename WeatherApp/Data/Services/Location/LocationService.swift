@@ -1,21 +1,15 @@
 //
-//  LocationManager.swift
+//  LocationService.swift
 //  WeatherApp
 //
-//  Created by Pawan Rai on 26/05/24.
+//  Created by Pawan on 17/06/24.
 //
 
 import Foundation
 import CoreLocation
 import Combine
 
-import Foundation
-import CoreLocation
-import Combine
-
-/// LocationManager class to handle location updates and authorization status.
-class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, LocationServiceProtocol {
-	
+final class LocationService: NSObject, LocationServiceProtocol, CLLocationManagerDelegate {
 	/// The CLLocationManager instance responsible for fetching the location.
 	private var manager: CLLocationManager
 	

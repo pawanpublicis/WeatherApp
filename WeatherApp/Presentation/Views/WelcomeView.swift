@@ -36,12 +36,18 @@ struct WelcomeView: View {
 }
 
 #Preview {
-	WelcomeView(
-		weatherViewModel:WeatherViewModel(
-			weatherService: WeatherManager(
-				apiService: WeatherService()
-			),
-			locationService: LocationManager()
+	let weatherViewModel: WeatherViewModel = WeatherViewModel(
+		weatherService: WeatherUseCase(
+			repository: DefaultWeatherRepository(
+				service: WeatherService()
+			)
+		),
+		locationService: LocationUseCase(
+			repository: DefaultLocationRepository(
+				service: LocationService(),
+				isLocationAuthorized: false
+			)
 		)
 	)
+	return WelcomeView(weatherViewModel: weatherViewModel)
 }
