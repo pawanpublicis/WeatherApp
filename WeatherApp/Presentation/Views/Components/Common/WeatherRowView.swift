@@ -1,5 +1,5 @@
 //
-//  WeatherRow.swift
+//  WeatherRowView.swift
 //  WeatherApp
 //
 //  Created by Pawan Rai on 26/05/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct WeatherRow: View {
+struct WeatherRowView: View {
     var logo: String
     var name: String
     var value: String
@@ -33,7 +33,6 @@ struct WeatherRow: View {
     }
 }
 
-
 #Preview {
-    WeatherRow(logo: "thermometer", name: "Feels like", value: "8°")
+    WeatherRowView(logo: "thermometer", name: "Feels like", value: "8°")
 }
