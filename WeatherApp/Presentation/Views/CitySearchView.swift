@@ -8,36 +8,33 @@
 import SwiftUI
 
 struct CitySearchView: View {
-	//
 	@State private var cityName: String = ""
 	var citySearchClosure: (_ cityName: String) -> Void
 	@Binding var isPresented: Bool
-	//
-    var body: some View {
+	
+	var body: some View {
 		ZStack {
 			VStack(alignment: .center) {
 				Text("Check the weather for any city around the globe")
 					.font(.footnote)
 					.padding(.vertical, 16)
+				
 				HStack {
-					Text("")
-						.padding(.horizontal, 8)
-					TextField(
-						"",
+					CustomTextField(
 						text: $cityName,
-						prompt: Text(
-							"Enter city name"
-						).foregroundColor(
-							.gray
-						)
+						placeholder: "Enter city name"
 					)
-					.textFieldStyle(.plain)
-					.foregroundStyle(Color.black)
+					.padding()
+					.tint(.white)
+					.frame(height: 44)
+					.overlay(
+						RoundedRectangle(
+							cornerRadius: 14
+						)
+						.stroke(.white, lineWidth: 1)
+					)
 					.accessibilityIdentifier("Search")
 				}
-				.frame(height: 50)
-				.background(Color.white)
-				.clipShape(.capsule)
 				.padding()
 				
 				Button {
@@ -48,20 +45,22 @@ struct CitySearchView: View {
 				} label: {
 					Text("Search")
 						.font(.title2)
-						.foregroundStyle(Color.white)
+						.foregroundColor(.white)
 						.padding(.horizontal, 20)
 				}
-				.buttonStyle(.bordered)
+				.buttonStyle(BorderlessButtonStyle())
 				.tint(.black)
-				.clipShape(.capsule)
+				.frame(height: 50)
+				.background(Color.blue)
+				.clipShape(Capsule())
 				.padding(.vertical, 20)
-                .accessibilityIdentifier("CitySearchButton")
+				.accessibilityIdentifier("CitySearchButton")
 				
 				Spacer()
 			}
 		}
 		.background(Color(hue: 0.636, saturation: 0.78, brightness: 0.773))
-    }
+	}
 }
 
 #Preview {

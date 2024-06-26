@@ -56,6 +56,7 @@
 		87A952592C11A98800B0381B /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A952582C11A98800B0381B /* Weather.swift */; };
 		87A9525C2C11A9AF00B0381B /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A9525B2C11A9AF00B0381B /* WeatherViewModel.swift */; };
 		87B6ABF62C19C05A0085BEF0 /* WeatherViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B6ABF52C19C05A0085BEF0 /* WeatherViewModelTests.swift */; };
+		87F3FAAE2C2C104B0042DC6D /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F3FAAD2C2C104B0042DC6D /* CustomTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +128,7 @@
 		87A952582C11A98800B0381B /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		87A9525B2C11A9AF00B0381B /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 		87B6ABF52C19C05A0085BEF0 /* WeatherViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModelTests.swift; sourceTree = "<group>"; };
+		87F3FAAD2C2C104B0042DC6D /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +225,7 @@
 			children = (
 				091E55012C0394F90027818A /* WeatherRow.swift */,
 				091E54F22C037AE40027818A /* LoadingView.swift */,
+				87F3FAAD2C2C104B0042DC6D /* CustomTextField.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -668,6 +671,7 @@
 				877E010C2C18816D0020C4E0 /* Location.swift in Sources */,
 				09107C122C00C67C000BE40B /* ContentView.swift in Sources */,
 				874D23072C1F21CB003111BA /* WeatherResponse.swift in Sources */,
+				87F3FAAE2C2C104B0042DC6D /* CustomTextField.swift in Sources */,
 				09107C102C00C67C000BE40B /* WeatherApp.swift in Sources */,
 				877E010E2C18838D0020C4E0 /* LocationError.swift in Sources */,
 				874D22F62C1F0BF2003111BA /* LocationUseCase.swift in Sources */,
