@@ -28,14 +28,20 @@ final class WeatherAppUITests: XCTestCase {
 		XCTAssertTrue(shareLocationButton.waitForExistence(timeout: 10), "Share location button should exist")
 		shareLocationButton.tap()
         
-        // Tap on `OK` button in alert
-        let locationDialogMonitor = addUIInterruptionMonitor(withDescription: "Automatically allow location permissions") { alert in
-            alert.buttons["OK"].tap()
-            return true
-        }
-        //
-        app.swipeUp()
-        self.removeUIInterruptionMonitor(locationDialogMonitor)
+		// Check for and handle location permission dialog
+		if app.alerts.element.exists {
+			app.buttons["OK"].tap()
+		}
+		
+		// Remove the interruption monitor after handling the dialog
+		let locationDialogMonitor = addUIInterruptionMonitor(withDescription: "Automatically allow location permissions") { alert in
+			alert.buttons["OK"].tap()
+			return true
+		}
+		
+		// Perform interactions
+		app.swipeUp()
+		self.removeUIInterruptionMonitor(locationDialogMonitor)
 		
 		// Tap the button to make the CitySearchView appear
 		let searchButton = app.buttons["SearchButton"]
