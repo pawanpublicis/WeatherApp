@@ -10,7 +10,7 @@ import Foundation
 /// WeatherService is responsible for making WeatherAPI requests.
 final class WeatherService: WeatherServiceProtocol {
 	//
-	let session: URLSession
+	private let session: URLSession
 	
 	init(session: URLSession = URLSession.shared) {
 		self.session = session

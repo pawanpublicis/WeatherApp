@@ -12,7 +12,7 @@ import CoreLocation
 final class DefaultWeatherRepository: WeatherRepository {
 	
 	/// The weather service used to make API requests.
-	let service: WeatherServiceProtocol
+	private let service: WeatherServiceProtocol
 	
 	/// Initializes the DefaultWeatherRepository with the provided service.
 	/// - Parameter service: The weather service used to make API requests.

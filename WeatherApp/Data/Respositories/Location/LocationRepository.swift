@@ -12,10 +12,10 @@ import Combine
 final class DefaultLocationRepository: LocationRepository {
 
 	/// The location service used to manage location data.
-	let service: LocationServiceProtocol
+	private let service: LocationServiceProtocol
 	
 	/// Indicates whether the app has location authorization.
-	var isLocationAuthorized: Bool
+	internal var isLocationAuthorized: Bool
 	
 	/// Initializes the DefaultLocationRepository with the provided service and authorization status.
 	/// - Parameters:
